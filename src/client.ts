@@ -2,7 +2,6 @@ import { createClient, http, parseEther, type PublicClient } from 'viem';
 import { createPublicClient } from 'viem';
 import { Account, Chains } from 'porto';
 import { Key, RelayActions } from 'porto/viem';
-import * as Hex from 'ox/Hex';
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 const selfAddress = '0x35a7d3865f6e7807768f5d524b1e69310ce4193d';
@@ -51,7 +50,6 @@ const clientStep1 = async (): Promise<SignaturesAndRequests> => {
   if (!isContract) {
     // Prepare upgrade and sign auth + exec digests
     const adminKey = Key.fromSecp256k1({ address: eoa.address });
-    console.log('public key: ', Hex.padLeft(eoa.address, 32));
     upgradeRequest = await RelayActions.prepareUpgradeAccount(client, {
       address: eoa.address,
       authorizeKeys: [adminKey],

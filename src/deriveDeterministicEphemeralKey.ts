@@ -1,7 +1,7 @@
 import { type HDKey } from 'viem/accounts';
 
-export function generateDerivedPrivateKey({
-  viewingPrivateKeyNode, // m/5564'/0'
+export function deriveDeterministicEphemeralKey({
+  childViewingNode, // m/5564'/0'
   nonce,
   chainId,
   coinType,
