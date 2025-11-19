@@ -55,7 +55,7 @@ sequenceDiagram
     PortoRPC ->> Server: 200 status
 ```
 
-## Detailed Notes (Full Cryptographic Flow)
+## Detailed Notes
 
 ### 1. Sign-In Derivation
 
