@@ -15,9 +15,13 @@ describe('genKeysFromSignature', () => {
     expect(p_view).toEqual(
       '0x16988506fc3aa66bad0f3f231aa9552a1639b7c05477e6d59f8044adb3155322'
     );
-    expect(P_spend).toEqual('0x0417fa0d4fdbee6f6f0747a67dafbdcccd7de6281fe694e1b84a426621f3a329e94f8936f0c39aa780fb3588d2043c597ff3e4205cf54cdb83e131b7bd37a0699f');
-    expect(P_view).toEqual('0x042581ca15a8f6e1678bcc50fa0259568e3f9c1324c272ea0b960e5ef1b5c6f4de36ba7b1de7658377f934b55fe3672c1808a3f52c43d8ddde61da8d7a4dab95f8');
-  }); 
+    expect(P_spend).toEqual(
+      '0x0417fa0d4fdbee6f6f0747a67dafbdcccd7de6281fe694e1b84a426621f3a329e94f8936f0c39aa780fb3588d2043c597ff3e4205cf54cdb83e131b7bd37a0699f'
+    );
+    expect(P_view).toEqual(
+      '0x042581ca15a8f6e1678bcc50fa0259568e3f9c1324c272ea0b960e5ef1b5c6f4de36ba7b1de7658377f934b55fe3672c1808a3f52c43d8ddde61da8d7a4dab95f8'
+    );
+  });
 
   it('should throw an error for a signature that does not have the correct length', () => {
     const signature = ('0x' + 'a'.repeat(128)) as `0x${string}`;

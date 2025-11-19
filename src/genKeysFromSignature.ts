@@ -1,5 +1,5 @@
-import { keccak256, hexToBytes, slice, } from 'viem';
-import { privateKeyToAccount } from 'viem/accounts'
+import { keccak256, hexToBytes, slice } from 'viem';
+import { privateKeyToAccount } from 'viem/accounts';
 
 /**
  * Derives p_spend, P_spend, p_view, and P_view keys from a signature.
