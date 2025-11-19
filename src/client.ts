@@ -2,18 +2,26 @@ import { createClient, http, parseEther, type PublicClient } from 'viem';
 import { createPublicClient } from 'viem';
 import { Account, Chains } from 'porto';
 import { Key, RelayActions } from 'porto/viem';
-import * as Hex from 'ox/Hex'
+import * as Hex from 'ox/Hex';
 
-const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
-const selfAddress = "0x35a7d3865f6e7807768f5d524b1e69310ce4193d";
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+const selfAddress = '0x35a7d3865f6e7807768f5d524b1e69310ce4193d';
 
 const publicClient = createPublicClient({
   chain: Chains.base,
   transport: http(),
 });
 
-type Signatures = { auth?: `0x${string}`, exec?: `0x${string}`, payment: `0x${string}` };
-type SignaturesAndRequests = { signatures: Signatures, upgradeRequest?: RelayActions.prepareUpgradeAccount.ReturnType, paymentRequest: RelayActions.prepareCalls.ReturnType };
+type Signatures = {
+  auth?: `0x${string}`;
+  exec?: `0x${string}`;
+  payment: `0x${string}`;
+};
+type SignaturesAndRequests = {
+  signatures: Signatures;
+  upgradeRequest?: RelayActions.prepareUpgradeAccount.ReturnType;
+  paymentRequest: RelayActions.prepareCalls.ReturnType;
+};
 
 const clientStep1 = async (): Promise<SignaturesAndRequests> => {
   const client = createClient({
@@ -22,7 +30,10 @@ const clientStep1 = async (): Promise<SignaturesAndRequests> => {
   });
 
   // const key = Key.createSecp256k1();
-  const key = Key.fromSecp256k1({ privateKey: "0xe5b9cf1225c78dd19f0ff3dca2658bd37f69004e510db9548e86d572d600fac5" });
+  const key = Key.fromSecp256k1({
+    privateKey:
+      '0xe5b9cf1225c78dd19f0ff3dca2658bd37f69004e510db9548e86d572d600fac5',
+  });
   if (!key.privateKey) {
     throw new Error('Failed to create private key');
   }
@@ -33,20 +44,26 @@ const clientStep1 = async (): Promise<SignaturesAndRequests> => {
   const code = await publicClient.getCode({ address: eoa.address });
   const isContract = code !== undefined && code !== '0x';
 
-  let upgradeSigs: { auth?: `0x${string}`, exec?: `0x${string}` } = {};
-  let upgradeRequest: RelayActions.prepareUpgradeAccount.ReturnType | undefined = undefined;
+  let upgradeSigs: { auth?: `0x${string}`; exec?: `0x${string}` } = {};
+  let upgradeRequest:
+    | RelayActions.prepareUpgradeAccount.ReturnType
+    | undefined = undefined;
   if (!isContract) {
     // Prepare upgrade and sign auth + exec digests
-    const adminKey = Key.fromSecp256k1({address: eoa.address});
-    console.log("public key: ", Hex.padLeft(eoa.address, 32));
+    const adminKey = Key.fromSecp256k1({ address: eoa.address });
+    console.log('public key: ', Hex.padLeft(eoa.address, 32));
     upgradeRequest = await RelayActions.prepareUpgradeAccount(client, {
       address: eoa.address,
       authorizeKeys: [adminKey],
     });
 
     upgradeSigs = {
-      auth: (await eoa.sign({ hash: upgradeRequest.digests.auth })) as `0x${string}`,
-      exec: (await eoa.sign({ hash: upgradeRequest.digests.exec })) as `0x${string}`,
+      auth: (await eoa.sign({
+        hash: upgradeRequest.digests.auth,
+      })) as `0x${string}`,
+      exec: (await eoa.sign({
+        hash: upgradeRequest.digests.exec,
+      })) as `0x${string}`,
     };
   } else {
     console.log('EOA is already a contract, no need to upgrade.');
@@ -55,11 +72,13 @@ const clientStep1 = async (): Promise<SignaturesAndRequests> => {
   // Prepare payment call and sign payment digest
   const paymentRequest = await RelayActions.prepareCalls(client, {
     account: eoa,
-    calls: [{
-      to: selfAddress,
-      value: parseEther('0.000001'),
-      data: '0x',
-    }]
+    calls: [
+      {
+        to: selfAddress,
+        value: parseEther('0.000001'),
+        data: '0x',
+      },
+    ],
     // Before, we had 'keys' set to be the EOA but this caused an error. It was failing with:
     // key hash 0x93f9007dae459e600c1032c6f1ea42d82e80b8debfd83859c2f785f89f8c6a6a is unknown.
     // In relay.rs -> UnknownKeyHash(hash)
@@ -72,25 +91,35 @@ const clientStep1 = async (): Promise<SignaturesAndRequests> => {
   });
   console.log('paymentSignature:', paymentSignature);
 
-  const signatures: Signatures = { auth: upgradeSigs.auth, exec: upgradeSigs.exec, payment: paymentSignature };
+  const signatures: Signatures = {
+    auth: upgradeSigs.auth,
+    exec: upgradeSigs.exec,
+    payment: paymentSignature,
+  };
   return { signatures, upgradeRequest, paymentRequest };
 };
 
-const serverStep2 = async (clientStep1Response: SignaturesAndRequests): Promise<boolean> => {
+const serverStep2 = async (
+  clientStep1Response: SignaturesAndRequests
+): Promise<boolean> => {
   const client = createClient({
     chain: Chains.base, // or Chains.base for mainnet
     transport: http('https://rpc.porto.sh'), // Use Porto Relay endpoint
   });
 
   // If we have upgrade signatures, we can upgrade the account
-  if (clientStep1Response.signatures.auth && clientStep1Response.signatures.exec && clientStep1Response.upgradeRequest) {
-    const upgradedAccount = await RelayActions.upgradeAccount(client, { 
-      ...clientStep1Response.upgradeRequest, 
+  if (
+    clientStep1Response.signatures.auth &&
+    clientStep1Response.signatures.exec &&
+    clientStep1Response.upgradeRequest
+  ) {
+    const upgradedAccount = await RelayActions.upgradeAccount(client, {
+      ...clientStep1Response.upgradeRequest,
       signatures: {
         auth: clientStep1Response.signatures.auth as `0x${string}`,
         exec: clientStep1Response.signatures.exec as `0x${string}`,
       },
-    }) 
+    });
 
     console.log('upgradedAccount:', upgradedAccount);
   }
@@ -121,13 +150,19 @@ const serverStep2 = async (clientStep1Response: SignaturesAndRequests): Promise<
       console.log('Status 100: Batch pending, waiting...');
     } else if (statusCode === 300) {
       // Batch has not been included onchain and wallet will not retry
-      throw new Error('Status 300: Offchain failure - batch will not be retried');
+      throw new Error(
+        'Status 300: Offchain failure - batch will not be retried'
+      );
     } else if (statusCode === 400) {
       // Batch reverted completely
-      throw new Error('Status 400: Chain rules failure - batch reverted completely');
+      throw new Error(
+        'Status 400: Chain rules failure - batch reverted completely'
+      );
     } else if (statusCode === 500) {
       // Batch reverted partially
-      throw new Error('Status 500: Partial chain rules failure - batch reverted partially');
+      throw new Error(
+        'Status 500: Partial chain rules failure - batch reverted partially'
+      );
     } else {
       // Unknown status code
       console.warn(`Unknown status code: ${statusCode}`);
@@ -138,7 +173,7 @@ const serverStep2 = async (clientStep1Response: SignaturesAndRequests): Promise<
   }
 
   return true;
-}
+};
 
 const main = async () => {
   const clientStep1Response = await clientStep1();
