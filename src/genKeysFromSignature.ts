@@ -1,17 +1,18 @@
-import { keccak256, hexToBytes, slice } from 'viem';
+import { keccak256, hexToBytes, slice, } from 'viem';
+import { privateKeyToAccount } from 'viem/accounts'
 
 /**
- * Generates stealth account keys from a signature.
- * This function derives spending and viewing private keys from a signature using keccak256 hashing.
+ * Derives p_spend, P_spend, p_view, and P_view keys from a signature.
+ * Credit: https://github.com/ScopeLift/umbra-protocol/blob/fb4481c547e420415aac6f84cdd6ea7d5fc2c3f7/umbra-js/src/classes/Umbra.ts#L603
  *
  * @param signature - The signature (hex string) to derive keys from. Must be 0x + 130 hex characters (132 total).
- * @returns An object containing the derived spendingPrivateKey and viewingPrivateKey
- * @throws Error if signature is not valid (wrong length or missing 0x prefix)
+ * @returns A tuple containing [p_view, P_view] and [p_spend, P_spend] key pairs
+ * @throws If signature is not valid (wrong length or missing 0x prefix)
  */
-export function generateKeysFromSignature(signature: `0x${string}`): {
-  spendingPrivateKey: `0x${string}`; // p_spend
-  viewingPrivateKey: `0x${string}`; // p_view
-} {
+export function genKeysFromSignature(signature: `0x${string}`): [
+  [`0x${string}`, `0x${string}`], // [p_view, P_view]
+  [`0x${string}`, `0x${string}`], // [p_spend, P_spend]
+] {
   // Validate signature format
   if (!signature.startsWith('0x')) {
     throw new Error('Signature is not valid.');
@@ -22,19 +23,23 @@ export function generateKeysFromSignature(signature: `0x${string}`): {
     throw new Error('Signature is not valid.');
   }
 
-  // Convert signature to bytes (65 bytes total for a signature)
+  // Strip 0x prefix and convert to bytes
   const signatureBytes = hexToBytes(signature);
 
-  // Generate spending private key by hashing the first 32 bytes of the signature
+  // Generates p_spend by hashing the first 32 bytes of the signature
   const first32Bytes = slice(signatureBytes, 0, 32);
-  const spendingPrivateKey = keccak256(first32Bytes) as `0x${string}`;
+  const p_spend = keccak256(first32Bytes) as `0x${string}`;
 
-  // Generate viewing private key by hashing bytes 32-64 of the signature
+  // Generates p_view by hashing bytes 32-64 of the signature
   const middle32Bytes = slice(signatureBytes, 32, 64);
-  const viewingPrivateKey = keccak256(middle32Bytes) as `0x${string}`;
+  const p_view = keccak256(middle32Bytes) as `0x${string}`;
 
-  return {
-    spendingPrivateKey,
-    viewingPrivateKey,
-  };
+  // Derive public keys from private keys
+  const P_spend = privateKeyToAccount(p_spend).publicKey;
+  const P_view = privateKeyToAccount(p_view).publicKey;
+
+  return [
+    [p_view, P_view],
+    [p_spend, P_spend],
+  ];
 }
