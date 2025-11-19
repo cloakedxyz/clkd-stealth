@@ -1,9 +1,8 @@
-import { createClient, http, parseEther, type PublicClient } from 'viem';
+import { createClient, http, parseEther } from 'viem';
 import { createPublicClient } from 'viem';
 import { Account, Chains } from 'porto';
 import { Key, RelayActions } from 'porto/viem';
 
-const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 const selfAddress = '0x35a7d3865f6e7807768f5d524b1e69310ce4193d';
 
 const publicClient = createPublicClient({

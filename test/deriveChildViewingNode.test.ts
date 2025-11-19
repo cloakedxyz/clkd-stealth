@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { HDKey } from '@scure/bip32';
 import { bytesToHex } from 'viem';
+import { HDKey } from 'viem/accounts';
 import { deriveChildViewingNode } from '../src/deriveChildViewingNode';
 
 /**

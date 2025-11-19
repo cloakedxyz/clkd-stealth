@@ -1,6 +1,5 @@
-import { keccak256, hexToBytes } from 'viem';
+import { keccak256, pad, toHex, hexToBytes } from 'viem';
 import * as secp from '@noble/secp256k1';
-import * as Hex from 'ox/Hex';
 
 /**
  * Derives p_stealth from p_spend and P_derived.
@@ -31,8 +30,5 @@ export function genStealthPrivateKey({
   const p_stealthBigInt =
     (BigInt(p_spend) * BigInt(hashedSharedSecret)) % CURVE_ORDER;
 
-  const p_stealthHex = `0x${p_stealthBigInt.toString(16)}` as `0x${string}`;
-  const p_stealth = Hex.padLeft(p_stealthHex, 32) as `0x${string}`;
-
-  return { p_stealth };
+  return { p_stealth: pad(toHex(p_stealthBigInt)) };
 }

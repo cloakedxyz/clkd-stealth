@@ -1,4 +1,4 @@
-import { HDKey } from '@scure/bip32';
+import { HDKey } from 'viem/accounts';
 import { hexToBytes, isHex } from 'viem';
 
 /**
