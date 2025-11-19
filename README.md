@@ -59,7 +59,7 @@ sequenceDiagram
 
 ### 1. Sign-In Derivation
 
-```typescript
+```bash
 sig       = sign(p, msgHash)
 
 p_spend   = SHA256(first_half_sig)
@@ -78,13 +78,13 @@ child_p_view  = bip32.ckd(master_p_view, "m/5564'/0'")
 
 ### 2. Server-Side Stealth Address Generation
 
-```typescript
+```bash
 coin_type = ensip11(chainId)
 c0 = coin_type.firstHalf
 c1 = coin_type.secondHalf
 ```
 
-```typescript
+```bash
 if nonce > 0xfffffff:
     parent_nonce = nonce / (0xfffffff + 1)
     nonce        = nonce % (0xfffffff + 1)
@@ -92,12 +92,11 @@ else:
     parent_nonce = 0
 ```
 
-
-```typescript
+```bash
 index = "m/c0'/c1'/0'/parent_nonce'/nonce'"
 ```
 
-```typescript
+```bash
 p_derived = bip32.ckd(child_p_view, index)
 S         = p_derived * P_spend  // ECDH shared secret
 r         = keccak(S)
@@ -117,7 +116,7 @@ The server maintains a set of stealth addresses it generated for the user and ch
 
 ### 4. Upgrade Authorization (Client)
 
-```typescript
+```bash
 p_derived = bip32.ckd(child_p_view, index)
 P_derived = toPubKey(p_derived)
 
@@ -127,7 +126,7 @@ r         = keccak(S)
 p_stealth = p_spend * r
 ```
 
-```typescript
+```bash
 authSig = sign(p_stealth, upgradeRequest.digest.auth)
 execSig = sign(p_stealth, upgradeRequest.digest.exec)
 ```
@@ -136,7 +135,7 @@ execSig = sign(p_stealth, upgradeRequest.digest.exec)
 
 ### 5. Payment Authorization
 
-```typescript
+```bash
 paymentSig = sign(p_stealth, paymentRequest.digest)
 ```
 
@@ -152,9 +151,9 @@ Porto RPC stores ERC-7702 delegation and applies/activates it only when needed (
 
 1. Server sends upgrade + prepareCalls bundle.
 2. Porto RPC:
-   - publishes 7702 delegation  
-   - deploys/upgrades account  
-   - executes payment  
+   - publishes 7702 delegation
+   - deploys/upgrades account
+   - executes payment
 3. Blockchain transfers **1 ETH → Bob**.
 4. Server polls status until `200`.
 
