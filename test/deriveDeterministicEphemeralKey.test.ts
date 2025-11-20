@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { deriveDeterministicEphemeralKey } from '../src/deriveDeterministicEphemeralKey';
-import { deriveChildViewingNode } from '../src/deriveChildViewingNode';
+import { deriveDeterministicEphemeralKey } from '../src/shared/deriveDeterministicEphemeralKey';
+import { deriveChildViewingNode } from '../src/shared/deriveChildViewingNode';
 
 /**
  * Cross referencing tests with Fluidkey's implementation:

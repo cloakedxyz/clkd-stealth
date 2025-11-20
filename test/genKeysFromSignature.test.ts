@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { genKeysFromSignature } from '../src/genKeysFromSignature';
+import { genKeysFromSignature } from '../src/client/genKeysFromSignature';
 
 describe('genKeysFromSignature', () => {
   it('should generate key pairs from a valid signature', () => {

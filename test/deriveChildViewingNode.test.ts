@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { bytesToHex } from 'viem';
 import { HDKey } from 'viem/accounts';
-import { deriveChildViewingNode } from '../src/deriveChildViewingNode';
+import { deriveChildViewingNode } from '../src/shared/deriveChildViewingNode';
 
 /**
  * Cross referencing tests with Fluidkey's implementation:
