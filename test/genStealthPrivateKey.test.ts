@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { genStealthPrivateKey } from '../src/client/genStealthPrivateKey';
-import { genKeysFromSignature } from '../src/client/genKeysFromSignature';
 import { privateKeyToAccount } from 'viem/accounts';
 
 describe('genStealthPrivateKey', () => {
