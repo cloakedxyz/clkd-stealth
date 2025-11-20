@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { privateKeyToAccount } from 'viem/accounts';
 import { isAddress } from 'viem';
 
-import { genStealthAddress } from '../src/shared/genStealthAddress';
+import { genStealthAddress, genStealthAddresses } from '../src/shared/genStealthAddress';
 
 /**
  * Test cases adapted from Fluidkey's implementation:
@@ -85,5 +85,28 @@ describe('genStealthAddress', () => {
     expect(() => genStealthAddress(validPublicKey, invalidDerived)).toThrow(
       'p_derived is not valid.'
     );
+  });
+});
+
+describe('genStealthAddresses', () => {
+  it('should generate the correct stealth addresses', () => {
+    const spendingPublicKeys = [
+      privateKeyToAccount(
+        '0x641f9f8b285fa1d22b009ea8c947bb6d88129b320b729d98810b40b51e8572c7'
+      ).publicKey,
+      privateKeyToAccount(
+        '0xef01af02e46bea24d45e909d3c219cbc5122e1cafd13f914deea1237ea0b01a6'
+      ).publicKey,
+    ];
+    const p_derived =
+      '0x4f80725f967e22f2597e363f977bb563de45c5e22e9c3594ebc0de8bdccf8945';
+
+    const result = genStealthAddresses({ P_spendSet: spendingPublicKeys, p_derived });
+
+    expect(result.stealthAddresses).toHaveLength(2);
+    expect(result.stealthAddresses).toEqual([
+      '0xf4126489Ac2F0df6441d0B72EFcC760EF0C19706',
+      '0x566953Fb7A022F8C7f6421464Ab700590F2b3464',
+    ]);
   });
 });

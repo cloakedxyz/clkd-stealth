@@ -6,7 +6,7 @@ describe('genKeysFromSignature', () => {
     // Test case from https://github.com/fluidkey/fluidkey-stealth-account-kit/blob/3bab3b158e4d9164dd96bd3d247c835328f1063c/test/generateKeysFromSignature.test.ts
     const signature =
       '0xd6bf71e45d06a0ccc68523f090148e38941cbdf4113edb59ecad3e0a5f1e7ceb7b6fd1e1ddd1d2141f263bcfa4b1a3f8bf64f809aaed1b03e722cd88c82344c21b';
-    const [[p_view, P_view], [p_spend, P_spend]] =
+      const { p_view, P_view, p_spend, P_spend } =
       genKeysFromSignature(signature);
 
     expect(p_spend).toEqual(
@@ -64,9 +64,9 @@ describe('genKeysFromSignature', () => {
     const signature2 =
       '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12';
 
-    const [[p_view1, P_view1], [p_spend1, P_spend1]] =
+    const { p_view: p_view1, P_view: P_view1, p_spend: p_spend1, P_spend: P_spend1 } =
       genKeysFromSignature(signature1);
-    const [[p_view2, P_view2], [p_spend2, P_spend2]] =
+    const { p_view: p_view2, P_view: P_view2, p_spend: p_spend2, P_spend: P_spend2 } =
       genKeysFromSignature(signature2);
 
     expect(p_view1).not.toEqual(p_view2);
@@ -78,7 +78,7 @@ describe('genKeysFromSignature', () => {
   it('should generate different p_view and p_spend from the same signature', () => {
     const signature =
       '0xd6bf71e45d06a0ccc68523f090148e38941cbdf4113edb59ecad3e0a5f1e7ceb7b6fd1e1ddd1d2141f263bcfa4b1a3f8bf64f809aaed1b03e722cd88c82344c21b';
-    const [[p_view, P_view], [p_spend, P_spend]] =
+    const { p_view, P_view, p_spend, P_spend } =
       genKeysFromSignature(signature);
 
     expect(p_view).not.toEqual(p_spend);
@@ -88,7 +88,7 @@ describe('genKeysFromSignature', () => {
   it('should return public keys in uncompressed format (starting with 0x04)', () => {
     const signature =
       '0xd6bf71e45d06a0ccc68523f090148e38941cbdf4113edb59ecad3e0a5f1e7ceb7b6fd1e1ddd1d2141f263bcfa4b1a3f8bf64f809aaed1b03e722cd88c82344c21b';
-    const [[p_view, P_view], [p_spend, P_spend]] =
+    const { p_view, P_view, p_spend, P_spend } =
       genKeysFromSignature(signature);
 
     expect(P_view.startsWith('0x04')).toBe(true);
@@ -98,7 +98,7 @@ describe('genKeysFromSignature', () => {
   it('should return public keys with correct length (132 chars total for uncompressed)', () => {
     const signature =
       '0xd6bf71e45d06a0ccc68523f090148e38941cbdf4113edb59ecad3e0a5f1e7ceb7b6fd1e1ddd1d2141f263bcfa4b1a3f8bf64f809aaed1b03e722cd88c82344c21b';
-    const [[p_view, P_view], [p_spend, P_spend]] =
+    const { p_view, P_view, p_spend, P_spend } =
       genKeysFromSignature(signature);
 
     // Uncompressed public key: 0x (2) + 04 prefix (2) + 32 bytes x (64) + 32 bytes y (64) = 132 chars total
@@ -109,7 +109,7 @@ describe('genKeysFromSignature', () => {
   it('should return private keys with correct length (66 hex chars)', () => {
     const signature =
       '0xd6bf71e45d06a0ccc68523f090148e38941cbdf4113edb59ecad3e0a5f1e7ceb7b6fd1e1ddd1d2141f263bcfa4b1a3f8bf64f809aaed1b03e722cd88c82344c21b';
-    const [[p_view, P_view], [p_spend, P_spend]] =
+    const { p_view, P_view, p_spend, P_spend } =
       genKeysFromSignature(signature);
 
     // Private key: 0x + 32 bytes = 66 chars
@@ -117,17 +117,16 @@ describe('genKeysFromSignature', () => {
     expect(p_spend.length).toBe(66);
   });
 
-  it('should return keys in the correct tuple structure', () => {
+  it('should return keys in the correct object structure', () => {
     const signature =
       '0xd6bf71e45d06a0ccc68523f090148e38941cbdf4113edb59ecad3e0a5f1e7ceb7b6fd1e1ddd1d2141f263bcfa4b1a3f8bf64f809aaed1b03e722cd88c82344c21b';
     const result = genKeysFromSignature(signature);
 
-    expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBe(2);
-    expect(Array.isArray(result[0])).toBe(true);
-    expect(Array.isArray(result[1])).toBe(true);
-    expect(result[0].length).toBe(2); // [p_view, P_view]
-    expect(result[1].length).toBe(2); // [p_spend, P_spend]
+    expect(typeof result).toBe('object');
+    expect(result).toHaveProperty('p_view');
+    expect(result).toHaveProperty('P_view');
+    expect(result).toHaveProperty('p_spend');
+    expect(result).toHaveProperty('P_spend');
   });
 
   it('should generate consistent keys for the same signature', () => {

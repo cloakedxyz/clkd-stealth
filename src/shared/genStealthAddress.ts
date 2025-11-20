@@ -12,7 +12,7 @@ import { publicKeyToAddress } from 'viem/utils';
 export function genStealthAddress(
   P_spend: `0x${string}`,
   p_derived: `0x${string}`
-): `0x${string}` {
+):`0x${string}` {
   if (
     !isHex(P_spend, { strict: true }) ||
     !P_spend.startsWith('0x04') ||
@@ -43,4 +43,21 @@ export function genStealthAddress(
 
   // Get the stealth address from the stealth public key
   return publicKeyToAddress(`0x${P_stealth.toHex(false)}`);
+}
+
+
+/**
+ * Generates multiple stealth addresses for a set of spending public keys using a single derived private key.
+ * @param P_spendSet - An array of spending public keys. Each must be an uncompressed public key (0x04 + 65 bytes).
+ * @param p_derived - Derived private key from the derivation path. Must be a 32-byte hex string (0x + 64 chars).
+ * @returns An object containing an array of stealth addresses.
+ */
+export function genStealthAddresses({
+  P_spendSet,
+  p_derived,
+}: {
+  P_spendSet: `0x${string}`[];  
+  p_derived: `0x${string}`;
+}): { stealthAddresses: `0x${string}`[] } {
+  return { stealthAddresses: P_spendSet.map((P_spend) => genStealthAddress(P_spend, p_derived)) };
 }
