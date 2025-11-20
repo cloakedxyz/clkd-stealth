@@ -2,7 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { privateKeyToAccount } from 'viem/accounts';
 import { isAddress } from 'viem';
 
-import { genStealthAddress, genStealthAddresses } from '../src/shared/genStealthAddress';
+import {
+  genStealthAddress,
+  genStealthAddresses,
+} from '../src/shared/genStealthAddress';
 
 /**
  * Test cases adapted from Fluidkey's implementation:
@@ -101,7 +104,10 @@ describe('genStealthAddresses', () => {
     const p_derived =
       '0x4f80725f967e22f2597e363f977bb563de45c5e22e9c3594ebc0de8bdccf8945';
 
-    const result = genStealthAddresses({ P_spendSet: spendingPublicKeys, p_derived });
+    const result = genStealthAddresses({
+      P_spendSet: spendingPublicKeys,
+      p_derived,
+    });
 
     expect(result.stealthAddresses).toHaveLength(2);
     expect(result.stealthAddresses).toEqual([

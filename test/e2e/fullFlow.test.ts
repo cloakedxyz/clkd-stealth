@@ -60,8 +60,7 @@ export async function runFullFlow({
   });
 
   // Generate the private keys from the signature
-  const { p_view, P_view, p_spend, P_spend } =
-    genKeysFromSignature(signature);
+  const { p_view, P_view, p_spend, P_spend } = genKeysFromSignature(signature);
 
   // Extract the node required to generate the pseudo-random input for stealth address generation
   const childViewingNode = deriveChildViewingNode(
@@ -203,86 +202,94 @@ describe('fullFlow', () => {
   // whereas Fluidkey uses a stealth safe address. We omit the safe address step in our implementation.
   it('should generate the correct stealth addresses starting from a private key and pi for fluid key test cases', async () => {
     const expectedResults = [
-        {
-          nonce: BigInt(0),
-          stealthAddress: '0x020D4Ae941F4E52465E7a454E86F97E9b6F69F5e',
-          stealthPrivateKey: '0xc3496b0b8564827706bd71a9a7c147adcd29e044f525e8002416172f4c24db5f',
-        },
-        {
-          nonce: BigInt(1),
-          stealthAddress: '0xaBAf813e06CEa74c1b61fE78399fEd63bd720d16',
-          stealthPrivateKey: '0x9144dea9bca79a4a300e94b8e1a4979d501159c9adc4b10364bfaafea3c34139',
-        },
-        {
-          nonce: BigInt(2),
-          stealthAddress: '0xbC7764eE5bd12263a35f4cF23728a86b35349994',
-          stealthPrivateKey: '0xfdfd59cc5b2feb553a5f4c1a97e7f00458402fa9f4e205687bf7d0a8a85f1b4e',
-        },
-        {
-          nonce: BigInt(3),
-          stealthAddress: '0x62b99620407F33732DFC1A39AA018F187641644C',
-          stealthPrivateKey: '0x4f3e1be745773ca6577b37f8da935f0c8245dc872a23b42af93cf3937ab56fe2',
-        },
-        {
-          nonce: BigInt(4),
-          stealthAddress: '0xADa00af959C347d4e8e96594c8AD973a3ecc2053',
-          stealthPrivateKey: '0xf4910a0b5ed9e9ab8709cbe85435cff10a4e1a9707687dd1fd633ea890337ab0',
-        },
-        {
-          nonce: BigInt(5),
-          stealthAddress: '0x616BEBe0dE2d584D337585a59356620f0b9A8d80',
-          stealthPrivateKey: '0x6c5d4bbe26f1db6ed6523be8cf987935232ca5d32317854dd70031408261a621',
-        },
-        {
-          nonce: BigInt(6),
-          stealthAddress: '0x2BAAE5A852CA632eD4aB8a8743949F19dcC892Af',
-          stealthPrivateKey: '0x4bbe8b6b45ea6febb6316f6f64cf595e81514d67aece0bdd01fd549b0c4ed525',
-        },
-        {
-          nonce: BigInt(7),
-          stealthAddress: '0x23005432f052f3b720e09BbAF85486b40AaaF59F',
-          stealthPrivateKey: '0xfb92ddb354c4c3fb696a84eb217402940bba4a30919e150606be462adda0a113',
-        },
-        {
-          nonce: BigInt(8),
-          stealthAddress: '0xe4fB01c7d4d344Db4cac03d8dd4211Fb8283088f',
-          stealthPrivateKey: '0xacfde69e98dcf6dd41fd9a89897c7898abc3faed21195e5fe97dc89469d97556',
-        },
-        {
-          nonce: BigInt(9),
-          stealthAddress: '0xDad3c9E83B52DeD3313838450Af15B1498f97999',
-          stealthPrivateKey: '0xcca098b0704d16e5750b27603fe5ea356986e53e8f05a8fedcfb8ecb31befae2',
-        },
-        {
-          nonce: BigInt(10),
-          stealthAddress: '0x222382b03c17fbE5C317A388c020913b2cDcF987',
-          stealthPrivateKey: '0x65d4c59647bf0e86f01f9373e7f354c45484eb09008e7f891a8593801581ff6f',
-        },
-      ];
+      {
+        nonce: BigInt(0),
+        stealthAddress: '0x020D4Ae941F4E52465E7a454E86F97E9b6F69F5e',
+        stealthPrivateKey:
+          '0xc3496b0b8564827706bd71a9a7c147adcd29e044f525e8002416172f4c24db5f',
+      },
+      {
+        nonce: BigInt(1),
+        stealthAddress: '0xaBAf813e06CEa74c1b61fE78399fEd63bd720d16',
+        stealthPrivateKey:
+          '0x9144dea9bca79a4a300e94b8e1a4979d501159c9adc4b10364bfaafea3c34139',
+      },
+      {
+        nonce: BigInt(2),
+        stealthAddress: '0xbC7764eE5bd12263a35f4cF23728a86b35349994',
+        stealthPrivateKey:
+          '0xfdfd59cc5b2feb553a5f4c1a97e7f00458402fa9f4e205687bf7d0a8a85f1b4e',
+      },
+      {
+        nonce: BigInt(3),
+        stealthAddress: '0x62b99620407F33732DFC1A39AA018F187641644C',
+        stealthPrivateKey:
+          '0x4f3e1be745773ca6577b37f8da935f0c8245dc872a23b42af93cf3937ab56fe2',
+      },
+      {
+        nonce: BigInt(4),
+        stealthAddress: '0xADa00af959C347d4e8e96594c8AD973a3ecc2053',
+        stealthPrivateKey:
+          '0xf4910a0b5ed9e9ab8709cbe85435cff10a4e1a9707687dd1fd633ea890337ab0',
+      },
+      {
+        nonce: BigInt(5),
+        stealthAddress: '0x616BEBe0dE2d584D337585a59356620f0b9A8d80',
+        stealthPrivateKey:
+          '0x6c5d4bbe26f1db6ed6523be8cf987935232ca5d32317854dd70031408261a621',
+      },
+      {
+        nonce: BigInt(6),
+        stealthAddress: '0x2BAAE5A852CA632eD4aB8a8743949F19dcC892Af',
+        stealthPrivateKey:
+          '0x4bbe8b6b45ea6febb6316f6f64cf595e81514d67aece0bdd01fd549b0c4ed525',
+      },
+      {
+        nonce: BigInt(7),
+        stealthAddress: '0x23005432f052f3b720e09BbAF85486b40AaaF59F',
+        stealthPrivateKey:
+          '0xfb92ddb354c4c3fb696a84eb217402940bba4a30919e150606be462adda0a113',
+      },
+      {
+        nonce: BigInt(8),
+        stealthAddress: '0xe4fB01c7d4d344Db4cac03d8dd4211Fb8283088f',
+        stealthPrivateKey:
+          '0xacfde69e98dcf6dd41fd9a89897c7898abc3faed21195e5fe97dc89469d97556',
+      },
+      {
+        nonce: BigInt(9),
+        stealthAddress: '0xDad3c9E83B52DeD3313838450Af15B1498f97999',
+        stealthPrivateKey:
+          '0xcca098b0704d16e5750b27603fe5ea356986e53e8f05a8fedcfb8ecb31befae2',
+      },
+      {
+        nonce: BigInt(10),
+        stealthAddress: '0x222382b03c17fbE5C317A388c020913b2cDcF987',
+        stealthPrivateKey:
+          '0x65d4c59647bf0e86f01f9373e7f354c45484eb09008e7f891a8593801581ff6f',
+      },
+    ];
 
     function genFluidkeyMessage({
-        pin,
-        address,
-      }: {
-        pin: string;
-        address: string;
-      }): { message: string } {
-        // Generate the secret based on the user's PIN and address
-        const secret = keccak256(toHex(address + pin)).replace(
-          '0x',
-          '',
-        );
-      
-        // Compose the message
-        const message = `Sign this message to generate your Fluidkey private payment keys.
+      pin,
+      address,
+    }: {
+      pin: string;
+      address: string;
+    }): { message: string } {
+      // Generate the secret based on the user's PIN and address
+      const secret = keccak256(toHex(address + pin)).replace('0x', '');
+
+      // Compose the message
+      const message = `Sign this message to generate your Fluidkey private payment keys.
 
 WARNING: Only sign this message within a trusted website or platform to avoid loss of funds.
 
 Secret: ${secret}`;
-      
-        // Return the message
-        return { message };
-      }
+
+      // Return the message
+      return { message };
+    }
 
     const { message } = genFluidkeyMessage({
       pin: userPin,

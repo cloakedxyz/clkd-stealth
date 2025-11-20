@@ -6,7 +6,7 @@ describe('genKeysFromSignature', () => {
     // Test case from https://github.com/fluidkey/fluidkey-stealth-account-kit/blob/3bab3b158e4d9164dd96bd3d247c835328f1063c/test/generateKeysFromSignature.test.ts
     const signature =
       '0xd6bf71e45d06a0ccc68523f090148e38941cbdf4113edb59ecad3e0a5f1e7ceb7b6fd1e1ddd1d2141f263bcfa4b1a3f8bf64f809aaed1b03e722cd88c82344c21b';
-      const { p_view, P_view, p_spend, P_spend } =
+    const { p_view, P_view, p_spend, P_spend } =
       genKeysFromSignature(signature);
 
     expect(p_spend).toEqual(
@@ -64,10 +64,18 @@ describe('genKeysFromSignature', () => {
     const signature2 =
       '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12';
 
-    const { p_view: p_view1, P_view: P_view1, p_spend: p_spend1, P_spend: P_spend1 } =
-      genKeysFromSignature(signature1);
-    const { p_view: p_view2, P_view: P_view2, p_spend: p_spend2, P_spend: P_spend2 } =
-      genKeysFromSignature(signature2);
+    const {
+      p_view: p_view1,
+      P_view: P_view1,
+      p_spend: p_spend1,
+      P_spend: P_spend1,
+    } = genKeysFromSignature(signature1);
+    const {
+      p_view: p_view2,
+      P_view: P_view2,
+      p_spend: p_spend2,
+      P_spend: P_spend2,
+    } = genKeysFromSignature(signature2);
 
     expect(p_view1).not.toEqual(p_view2);
     expect(p_spend1).not.toEqual(p_spend2);
