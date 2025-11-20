@@ -1,9 +1,13 @@
 {
-  "name": "clkd-stealth",
+  "name": "@cloakedxyz/clkd-stealth",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Core stealth address tools for Cloaked",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
@@ -13,13 +17,15 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\""
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "packageManager": "pnpm@10.18.0",
   "dependencies": {
     "@noble/secp256k1": "^3.0.0",
-    "porto": "^0.2.37",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.5",
     "typescript": "^5",
