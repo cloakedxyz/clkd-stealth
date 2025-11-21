@@ -13,4 +13,3 @@ export {
   genStealthAddress,
   genStealthAddresses,
 } from './shared';
-

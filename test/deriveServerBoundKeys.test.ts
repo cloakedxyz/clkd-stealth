@@ -270,6 +270,4 @@ describe('deriveServerBoundKeys', () => {
 
     expect(result.P_view).not.toEqual(result.P_spend);
   });
-
 });
-
