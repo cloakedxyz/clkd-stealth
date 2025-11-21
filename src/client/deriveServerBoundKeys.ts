@@ -9,14 +9,14 @@ import { deriveChildViewingNode } from '..';
 const VIEWING_PRIVATE_KEY_NODE_NUMBER = 0;
 
 /**
- * Helper function for the Client to generate the components the server needs to handle stealth
+ * Helper function for the Client to derive the keys the server needs to handle stealth
  * address generation and scanning.
  *
  * @param account - The private key account of the user.
  * @param pin - The pin of the user.
  * @returns P_view, P_spend, child_p_view.
  */
-export async function register({
+export async function deriveServerBoundKeys({
     account,
     pin
 }: {
@@ -44,5 +44,4 @@ export async function register({
         P_spend,
         child_p_view,
     }
-    
 }

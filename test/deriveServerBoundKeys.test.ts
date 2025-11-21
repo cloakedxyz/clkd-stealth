@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { privateKeyToAccount, HDKey } from 'viem/accounts';
 import { bytesToHex } from 'viem';
-import { register } from '../src/client/register';
+import { deriveServerBoundKeys } from '../src/client/deriveServerBoundKeys';
 import { genCloakedMessage } from '../src/client/genCloakedMessage';
 import { genKeysFromSignature } from '../src/client/genKeysFromSignature';
 import { deriveChildViewingNode } from '../src/shared/deriveChildViewingNode';
 
-describe('register', () => {
+describe('deriveServerBoundKeys', () => {
   const userPrivateKey =
     '0x8575420a19052cf9bbe9ef4ac755a9abaaefa3f1f2e35d14c04f38829182e9ba';
   const userPin = '1234';
@@ -14,7 +14,7 @@ describe('register', () => {
   const userAddress = account.address;
 
   it('should return the correct structure with P_view, P_spend, and child_p_view', async () => {
-    const result = await register({
+    const result = await deriveServerBoundKeys({
       account,
       pin: userPin,
     });
@@ -28,11 +28,11 @@ describe('register', () => {
   });
 
   it('should generate consistent results for the same inputs', async () => {
-    const result1 = await register({
+    const result1 = await deriveServerBoundKeys({
       account,
       pin: userPin,
     });
-    const result2 = await register({
+    const result2 = await deriveServerBoundKeys({
       account,
       pin: userPin,
     });
@@ -45,11 +45,11 @@ describe('register', () => {
   });
 
   it('should generate different results for different pins', async () => {
-    const result1 = await register({
+    const result1 = await deriveServerBoundKeys({
       account,
       pin: '1234',
     });
-    const result2 = await register({
+    const result2 = await deriveServerBoundKeys({
       account,
       pin: '5678',
     });
@@ -66,11 +66,11 @@ describe('register', () => {
       '0x16988506fc3aa66bad0f3f231aa9552a1639b7c05477e6d59f8044adb3155322'
     );
 
-    const result1 = await register({
+    const result1 = await deriveServerBoundKeys({
       account,
       pin: userPin,
     });
-    const result2 = await register({
+    const result2 = await deriveServerBoundKeys({
       account: account2,
       pin: userPin,
     });
@@ -83,7 +83,7 @@ describe('register', () => {
   });
 
   it('should return public keys in uncompressed format (starting with 0x04)', async () => {
-    const result = await register({
+    const result = await deriveServerBoundKeys({
       account,
       pin: userPin,
     });
@@ -93,7 +93,7 @@ describe('register', () => {
   });
 
   it('should return public keys with correct length (132 chars total for uncompressed)', async () => {
-    const result = await register({
+    const result = await deriveServerBoundKeys({
       account,
       pin: userPin,
     });
@@ -104,7 +104,7 @@ describe('register', () => {
   });
 
   it('should return a valid HDKey for child_p_view', async () => {
-    const result = await register({
+    const result = await deriveServerBoundKeys({
       account,
       pin: userPin,
     });
@@ -134,8 +134,8 @@ describe('register', () => {
     // Step 4: Derive child viewing node
     const child_p_view = deriveChildViewingNode(p_view, 0);
 
-    // Step 5: Call register and compare
-    const result = await register({
+    // Step 5: Call deriveServerBoundKeys and compare
+    const result = await deriveServerBoundKeys({
       account,
       pin: userPin,
       viewingPrivateKeyNodeNumber: 0,
@@ -152,7 +152,7 @@ describe('register', () => {
     const validPins = ['0000', '1234', '5678', '9999'];
 
     for (const pin of validPins) {
-      const result = await register({
+      const result = await deriveServerBoundKeys({
         account,
         pin,
       });
@@ -169,7 +169,7 @@ describe('register', () => {
     const nodeNumbers = [0, 1, 5, 10, 42, 100];
 
     for (const nodeNumber of nodeNumbers) {
-      const result = await register({
+      const result = await deriveServerBoundKeys({
         account,
         pin: userPin,
         viewingPrivateKeyNodeNumber: nodeNumber,
@@ -184,7 +184,7 @@ describe('register', () => {
 
   it('should throw an error for an invalid PIN (too short)', async () => {
     await expect(
-      register({
+      deriveServerBoundKeys({
         account,
         pin: '123',
       })
@@ -193,7 +193,7 @@ describe('register', () => {
 
   it('should throw an error for an invalid PIN (too long)', async () => {
     await expect(
-      register({
+      deriveServerBoundKeys({
         account,
         pin: '12345',
       })
@@ -202,7 +202,7 @@ describe('register', () => {
 
   it('should throw an error for an invalid PIN (non-numeric)', async () => {
     await expect(
-      register({
+      deriveServerBoundKeys({
         account,
         pin: '12ab',
       })
@@ -211,7 +211,7 @@ describe('register', () => {
 
   it('should throw an error for an empty PIN', async () => {
     await expect(
-      register({
+      deriveServerBoundKeys({
         account,
         pin: '',
       })
@@ -227,7 +227,7 @@ describe('register', () => {
 
     for (const privateKey of privateKeys) {
       const testAccount = privateKeyToAccount(privateKey as `0x${string}`);
-      const result = await register({
+      const result = await deriveServerBoundKeys({
         account: testAccount,
         pin: userPin,
       });
@@ -240,12 +240,12 @@ describe('register', () => {
 
   it('should produce deterministic results: same account + same pin + same node = same output', async () => {
     const nodeNumber = 5;
-    const result1 = await register({
+    const result1 = await deriveServerBoundKeys({
       account,
       pin: userPin,
       viewingPrivateKeyNodeNumber: nodeNumber,
     });
-    const result2 = await register({
+    const result2 = await deriveServerBoundKeys({
       account,
       pin: userPin,
       viewingPrivateKeyNodeNumber: nodeNumber,
@@ -263,7 +263,7 @@ describe('register', () => {
   });
 
   it('should return P_view and P_spend that are different from each other', async () => {
-    const result = await register({
+    const result = await deriveServerBoundKeys({
       account,
       pin: userPin,
     });

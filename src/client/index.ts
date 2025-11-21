@@ -1,4 +1,4 @@
 export { genKeysFromSignature } from './genKeysFromSignature';
 export { genStealthPrivateKey } from './genStealthPrivateKey';
 export { genCloakedMessage } from './genCloakedMessage';
-export { register } from './register';
+export { deriveServerBoundKeys } from './deriveServerBoundKeys';
