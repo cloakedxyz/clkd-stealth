@@ -3,6 +3,7 @@ export {
   genKeysFromSignature,
   genStealthPrivateKey,
   genCloakedMessage,
+  register,
 } from './client';
 
 // Export all shared functions
