@@ -115,4 +115,117 @@ describe('genStealthAddresses', () => {
       '0x566953Fb7A022F8C7f6421464Ab700590F2b3464',
     ]);
   });
+
+  it('should handle an empty array of spending public keys', () => {
+    const p_derived =
+      '0x4f80725f967e22f2597e363f977bb563de45c5e22e9c3594ebc0de8bdccf8945';
+
+    const result = genStealthAddresses({
+      P_spendSet: [],
+      p_derived,
+    });
+
+    expect(result.stealthAddresses).toHaveLength(0);
+    expect(result.stealthAddresses).toEqual([]);
+  });
+
+  it('should handle a single spending public key', () => {
+    const spendingPublicKey = privateKeyToAccount(
+      '0x641f9f8b285fa1d22b009ea8c947bb6d88129b320b729d98810b40b51e8572c7'
+    ).publicKey;
+    const p_derived =
+      '0x4f80725f967e22f2597e363f977bb563de45c5e22e9c3594ebc0de8bdccf8945';
+
+    const result = genStealthAddresses({
+      P_spendSet: [spendingPublicKey],
+      p_derived,
+    });
+
+    expect(result.stealthAddresses).toHaveLength(1);
+    expect(result.stealthAddresses[0]).toBe(
+      '0xf4126489Ac2F0df6441d0B72EFcC760EF0C19706'
+    );
+    expect(isAddress(result.stealthAddresses[0])).toBe(true);
+  });
+
+  it('should handle a large array of spending public keys', () => {
+    const privateKeys = Array.from(
+      { length: 10 },
+      (_, i) => `0x${(i + 1).toString().padStart(64, '0')}`
+    ) as `0x${string}`[];
+
+    const spendingPublicKeys = privateKeys.map(
+      (pk) => privateKeyToAccount(pk).publicKey
+    );
+
+    const p_derived =
+      '0x4f80725f967e22f2597e363f977bb563de45c5e22e9c3594ebc0de8bdccf8945';
+
+    const result = genStealthAddresses({
+      P_spendSet: spendingPublicKeys,
+      p_derived,
+    });
+
+    expect(result.stealthAddresses).toHaveLength(10);
+    result.stealthAddresses.forEach((address) => {
+      expect(isAddress(address)).toBe(true);
+      expect(address).toMatch(/^0x[0-9a-fA-F]{40}$/);
+    });
+  });
+
+  it('should throw when any P_spend in the array is invalid', () => {
+    const validPublicKey = privateKeyToAccount(
+      '0x641f9f8b285fa1d22b009ea8c947bb6d88129b320b729d98810b40b51e8572c7'
+    ).publicKey;
+    const invalidPublicKey = 'not-a-hex-value' as `0x${string}`;
+    const p_derived =
+      '0x4f80725f967e22f2597e363f977bb563de45c5e22e9c3594ebc0de8bdccf8945';
+
+    expect(() =>
+      genStealthAddresses({
+        P_spendSet: [validPublicKey, invalidPublicKey],
+        p_derived,
+      })
+    ).toThrow('P_spend is not valid.');
+  });
+
+  it('should throw when p_derived is invalid', () => {
+    const validPublicKey = privateKeyToAccount(
+      '0x641f9f8b285fa1d22b009ea8c947bb6d88129b320b729d98810b40b51e8572c7'
+    ).publicKey;
+    const invalidDerived = '0xnothexvalue' as `0x${string}`;
+
+    expect(() =>
+      genStealthAddresses({
+        P_spendSet: [validPublicKey],
+        p_derived: invalidDerived,
+      })
+    ).toThrow('p_derived is not valid.');
+  });
+
+  it('should generate unique addresses for different spending keys with same derived key', () => {
+    const spendingPublicKeys = [
+      privateKeyToAccount(
+        '0x641f9f8b285fa1d22b009ea8c947bb6d88129b320b729d98810b40b51e8572c7'
+      ).publicKey,
+      privateKeyToAccount(
+        '0xef01af02e46bea24d45e909d3c219cbc5122e1cafd13f914deea1237ea0b01a6'
+      ).publicKey,
+      privateKeyToAccount(
+        '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+      ).publicKey,
+    ];
+    const p_derived =
+      '0x4f80725f967e22f2597e363f977bb563de45c5e22e9c3594ebc0de8bdccf8945';
+
+    const result = genStealthAddresses({
+      P_spendSet: spendingPublicKeys,
+      p_derived,
+    });
+
+    // All addresses should be unique
+    const uniqueAddresses = new Set(result.stealthAddresses);
+    expect(uniqueAddresses.size).toBe(3);
+    expect(result.stealthAddresses).toHaveLength(3);
+  });
 });
