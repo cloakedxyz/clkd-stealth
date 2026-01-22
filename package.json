@@ -1,6 +1,6 @@
 {
   "name": "@cloakedxyz/clkd-stealth",
-  "version": "1.0.2",
+  "version": "0.0.1",
   "description": "Core stealth address tools for Cloaked",
   "main": "dist/index.js",
   "module": "dist/index.js",
