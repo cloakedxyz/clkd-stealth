@@ -109,69 +109,69 @@ describe('fullFlow', () => {
     const expectedResults = [
       {
         nonce: BigInt(0),
-        stealthAddress: '0x4743bBffceBfa75301f128D81CB4fD6a53408AB9',
+        stealthAddress: '0xF9306213aF3ed8B42BF923D1519deC0bc657F735',
         stealthPrivateKey:
-          '0xe3bae99ce361c5d0a83fc1e1c946282cd15ded4288e16ace87cd407b33122eac',
+          '0xde25081883411999baf0eecf5b7bd2b325c0c202ae0e9b9aeab29d55f93752a5',
       },
       {
         nonce: BigInt(1),
-        stealthAddress: '0xA6d0B9FAe89c32a044e5E7C769D77b1F19edC90F',
+        stealthAddress: '0x3FA8571c117Abf183a65b75E4e9E2d6942b5131c',
         stealthPrivateKey:
-          '0xe9c005fe066b7e78db616abd668820e13525948553abd9f5d819f36c4bdbb4ca',
+          '0x0436732a5981e0cdd2ee638146b29a5290d416e875f4931ca9ce227f519a54c0',
       },
       {
         nonce: BigInt(2),
-        stealthAddress: '0xf010e0f737169BEc49Bde64A99032D18498BB8a4',
+        stealthAddress: '0x8BAa105Dc7B0B8f03A595Dc2d13BDaC8d41A46Ea',
         stealthPrivateKey:
-          '0x286a218825a3f9934611ce81b0d4bd07091b364f67fdbf40e9251a186512039f',
+          '0xea41d9300a7348aa8c804b644c0db43123a58734972360c7c91fd881cc79b7de',
       },
       {
         nonce: BigInt(3),
-        stealthAddress: '0x0E9d1F0d4F417DD416c296BE01f12d9639263e14',
+        stealthAddress: '0x2A10741F666ea5E6303dA75C8F9720ADb54b28A0',
         stealthPrivateKey:
-          '0x127d8e535640f5282645ead7cf7bbe3aa0a63b92370dcf22ccfc986fb092eaae',
+          '0x735d4e2f5a7ca6d45356fc1eedd5bd6e4f182a5fc2419e5e24e595e78d8438ef',
       },
       {
         nonce: BigInt(4),
-        stealthAddress: '0x8061Cac430911f3f4876c7B985Bd4F9bea659325',
+        stealthAddress: '0x0C454543E7D13eDF35879E0650e6cADCE0aC2c1F',
         stealthPrivateKey:
-          '0xcdb48f5bd28fd04033923d4ab41d573c02b960757b966c58e31ef144d592844e',
+          '0xa10593e45796623823306074667597bec4b203c2cf730ec3d33471d08a5a8b21',
       },
       {
         nonce: BigInt(5),
-        stealthAddress: '0xA543237E4aA8C802aC0b1D441E6989a3d03bb66C',
+        stealthAddress: '0xC49A2Ee8Cf9915D6fE7427a22474C17bDFaafAb1',
         stealthPrivateKey:
-          '0x7e7b8382658aef4fb441ff91ac030434f446704c8f32d77674e90a951168fa7a',
+          '0x3a9505c2096adebd29a7e60c81ac3cac00c4e255d5617ee11516a25315de4fbc',
       },
       {
         nonce: BigInt(6),
-        stealthAddress: '0x5516520CFC508855369F9bfa22D8BcD174049A26',
+        stealthAddress: '0x65Ce0410f5B58b1b166C9ae9140674c9316569A9',
         stealthPrivateKey:
-          '0xba08baf8d98d6b2de21c95cf2db36dd0361fc8f3dcb89d3bb92a0c752cc997df',
+          '0xbfb79d758063c87437852525548d0e5da81d746da9810378d03fa35d712a55e7',
       },
       {
         nonce: BigInt(7),
-        stealthAddress: '0xc432743d42C56a692F9da94857e3f88c267AE2DD',
+        stealthAddress: '0xbf3F1D32400A8a954210aF4afb7221e5BcCBE7B2',
         stealthPrivateKey:
-          '0xa70785cde85833fc5b26136547838b3fe9539ac50688340bbe5f64123719c6f4',
+          '0x1411e0dacfb432d0a5ade131d753a839d2bada950e1cf5109f4f944f8ddc9d47',
       },
       {
         nonce: BigInt(8),
-        stealthAddress: '0xa188C2B413c1749184CF123103F30B89E44E0894',
+        stealthAddress: '0x9F5bBcf9eE616Ac05Cb9C986b04E648015BcFBBD',
         stealthPrivateKey:
-          '0xbb177768be66e1a7710f085a8f38482671bff0ce8abf51af87c79828ae162498',
+          '0x0ca3facaa495d830c1f273220c1170b8725ad5016ab3bd1331aca236111cd9d1',
       },
       {
         nonce: BigInt(9),
-        stealthAddress: '0xB16Bc81F82befA4b35413818d36C2855da87dcAe',
+        stealthAddress: '0x14646C3be8d6646c329A7897aaC7f5A767EB5755',
         stealthPrivateKey:
-          '0xc185850d9f299fb86e5bd391dc6ef27cd3e20e22b984db8ace7b157ac8c6af35',
+          '0x309285c8318ab79998351a11e1b84f2cec796a34137947160676ba18b7dfa55d',
       },
       {
         nonce: BigInt(10),
-        stealthAddress: '0xa9Fa64D60F0Ea6bf8c8b17d8464d246974A5f7EF',
+        stealthAddress: '0xE1b5A3388C02C526AC98dbD5fEB012e79fF69B61',
         stealthPrivateKey:
-          '0x3ada0042fa8d4af46b19277f8e8943a975e00ffab15142e808dca6880b71b08e',
+          '0xc02ab3055ec5f507a1149d4bdc4e9c5c2ec81a6bfd3124ebfc7395cdaa8382e7',
       },
     ];
 
@@ -195,78 +195,73 @@ describe('fullFlow', () => {
     }
   }, 60000);
 
-  // Test cases adapted from Fluidkey's implementation:
-  // https://github.com/fluidkey/fluidkey-stealth-account-kit/blob/main/test/generateStealthAddresses.test.ts
-  // Note: The nonce and stealth private keys match Fluidkey's expected values, but the stealth address differs.
-  // In our implementation, the stealth address is the address directly derived from the stealth private key,
-  // whereas Fluidkey uses a stealth safe address. We omit the safe address step in our implementation.
   it('should generate the correct stealth addresses starting from a private key and pi for fluid key test cases', async () => {
     const expectedResults = [
       {
         nonce: BigInt(0),
-        stealthAddress: '0x020D4Ae941F4E52465E7a454E86F97E9b6F69F5e',
+        stealthAddress: '0x98C8E0E53b8f6A3C381676FC23A1834265091C2D',
         stealthPrivateKey:
-          '0xc3496b0b8564827706bd71a9a7c147adcd29e044f525e8002416172f4c24db5f',
+          '0x977488a3c87ff389828ee014fef69b2f3b329d10035fd090df3acf4c218d3434',
       },
       {
         nonce: BigInt(1),
-        stealthAddress: '0xaBAf813e06CEa74c1b61fE78399fEd63bd720d16',
+        stealthAddress: '0xda5A90B94843Fa4D055A6e28fF807d93FF4911Fd',
         stealthPrivateKey:
-          '0x9144dea9bca79a4a300e94b8e1a4979d501159c9adc4b10364bfaafea3c34139',
+          '0x434f1f64c6e8c51f8189b76777699ff332a49d336634c938a5ffb9a8beb3934a',
       },
       {
         nonce: BigInt(2),
-        stealthAddress: '0xbC7764eE5bd12263a35f4cF23728a86b35349994',
+        stealthAddress: '0x3a54626E4c267F6d573F8287892F9d65b09Bcd00',
         stealthPrivateKey:
-          '0xfdfd59cc5b2feb553a5f4c1a97e7f00458402fa9f4e205687bf7d0a8a85f1b4e',
+          '0xece65dead04ccc3d8278ac47e6e3274919d2bb340e021780a73fb507e5417641',
       },
       {
         nonce: BigInt(3),
-        stealthAddress: '0x62b99620407F33732DFC1A39AA018F187641644C',
+        stealthAddress: '0x9a278383EbA21D36A39389722f70C78cCbfF5322',
         stealthPrivateKey:
-          '0x4f3e1be745773ca6577b37f8da935f0c8245dc872a23b42af93cf3937ab56fe2',
+          '0x4e17ac913efdaf685d9b71631e05b8c3920377be581f68c4ba63e80a5a22dd74',
       },
       {
         nonce: BigInt(4),
-        stealthAddress: '0xADa00af959C347d4e8e96594c8AD973a3ecc2053',
+        stealthAddress: '0x49264d38274e3712D70a9951AEA3AED63FC2b7BB',
         stealthPrivateKey:
-          '0xf4910a0b5ed9e9ab8709cbe85435cff10a4e1a9707687dd1fd633ea890337ab0',
+          '0x44e12f695834f79018e95b8bfcc65ad01c388bd56c5c1dedfabf6ef0ca09014b',
       },
       {
         nonce: BigInt(5),
-        stealthAddress: '0x616BEBe0dE2d584D337585a59356620f0b9A8d80',
+        stealthAddress: '0xECBCA19444622F855443973458617d575B729285',
         stealthPrivateKey:
-          '0x6c5d4bbe26f1db6ed6523be8cf987935232ca5d32317854dd70031408261a621',
+          '0x3a949be84a4f598140532b3ddec20d0083b733e0a79968f5e3fb6d83b3b9b062',
       },
       {
         nonce: BigInt(6),
-        stealthAddress: '0x2BAAE5A852CA632eD4aB8a8743949F19dcC892Af',
+        stealthAddress: '0x0E50F9D0550e9a3420cBE20876Ebd653B85a081C',
         stealthPrivateKey:
-          '0x4bbe8b6b45ea6febb6316f6f64cf595e81514d67aece0bdd01fd549b0c4ed525',
+          '0x10fadd47095c5ee64e50ba68324b9ee0e2e174bfd72cfd11932644ec634ee8fe',
       },
       {
         nonce: BigInt(7),
-        stealthAddress: '0x23005432f052f3b720e09BbAF85486b40AaaF59F',
+        stealthAddress: '0xAea0078f4Daff6Fee9f550a7D6cA073B3D98c180',
         stealthPrivateKey:
-          '0xfb92ddb354c4c3fb696a84eb217402940bba4a30919e150606be462adda0a113',
+          '0xf3c5db10250574e5ad234e76117a5ebffa79a4a481f8d8d366c2afe828484374',
       },
       {
         nonce: BigInt(8),
-        stealthAddress: '0xe4fB01c7d4d344Db4cac03d8dd4211Fb8283088f',
+        stealthAddress: '0x9f19e0C654EC88dD92a31769048B1c7897C4b520',
         stealthPrivateKey:
-          '0xacfde69e98dcf6dd41fd9a89897c7898abc3faed21195e5fe97dc89469d97556',
+          '0xc1f310d608075c692b89d7f05e1e0e59f1867881bfc4b5e23ace28b47dfa51c8',
       },
       {
         nonce: BigInt(9),
-        stealthAddress: '0xDad3c9E83B52DeD3313838450Af15B1498f97999',
+        stealthAddress: '0x2F80a6E1edC4C57806F7DBC66b126D0cF330CF59',
         stealthPrivateKey:
-          '0xcca098b0704d16e5750b27603fe5ea356986e53e8f05a8fedcfb8ecb31befae2',
+          '0xa803bf08af9b5ee92640fe17b39c28f879e8edc120f2b128b99b899149fcd558',
       },
       {
         nonce: BigInt(10),
-        stealthAddress: '0x222382b03c17fbE5C317A388c020913b2cDcF987',
+        stealthAddress: '0xF8D7311197722cA7eAf71E4eD7a4D6CCD28D432b',
         stealthPrivateKey:
-          '0x65d4c59647bf0e86f01f9373e7f354c45484eb09008e7f891a8593801581ff6f',
+          '0x3285354d0414a3b175f40574482cdb9250bbaa2dfb2675c6e903102b830c6640',
       },
     ];
 

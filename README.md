@@ -1,6 +1,24 @@
+> **⚠️ Development Status**
+>
+> This library is currently under active development and is not yet ready for production use. The API and implementation are subject to change as we continue to refine and test the cryptographic primitives. A stable release will be available soon. Please check back for updates or monitor the repository for release announcements.
+
+<div align="center">
+  <img src="img/cloaked_logo.png" alt="Cloaked Logo" width="200">
+</div>
+
 # clkd-stealth
 
 A TypeScript library providing cryptographic primitives for deriving spending and viewing keys from signatures, generating stealth addresses, and managing hierarchical deterministic (HD) key derivations.
+
+## Installation
+
+```bash
+npm install @cloakedxyz/clkd-stealth
+# or
+pnpm add @cloakedxyz/clkd-stealth
+# or
+yarn add @cloakedxyz/clkd-stealth
+```
 
 ## Architecture
 
